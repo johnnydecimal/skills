@@ -4,87 +4,47 @@ description: Reference material describing the Johnny.Decimal system — its str
 user-invocable: false
 ---
 
-# The basics
+# Where the knowledge lives
 
-- Johnny.Decimal is a system to help you manage information. That might be notes, files, or anything else.
+Johnny.Decimal documentation lives on the `jd` MCP server, not in this file. This file holds two things only: enough vocabulary to read a number, and the JDex note conventions the server does not publish.
 
-- At the first level, the user defines **areas**. These are broad 'areas of life'.
-  - E.g. a typical area is `10-19 Life administration`.
-  - Areas should be broad. The goal is to have as few areas as possible: less choice is less ambiguity.
+Do not answer a question about how Johnny.Decimal works from memory. Call `list_documentation` once to see every page, then `get_documentation` with the slug you need. The pages cover areas and categories, IDs, headers, AC.ID notation, the standard zeros, the JDex, naming files, subfolder patterns, the inbox and archive, multiple systems, and extend-the-end.
 
-- Areas contain **categories**.
-  - E.g. area `10-19` contains category `11 Me & other living things`.
-  - Similarly we make them broad and use as few as possible.
+If the server is not connected, say so once, then answer from what is below and mark anything beyond it as uncertain.
 
-- Categories contain **IDs**.
-  - E.g. category `11` contains ID `11.11 Birth certificate & proof of name`.
-  - IDs tend to be granular. They should relate to a specific concept, item, etc.
+# Reading a number
 
-- The `AC.ID` notation is used to refer to any item in the abstract.
-  - `AC.ID` means any ID.
-  - `A0` means any category whose number ends `0`.
-  - `1C.ID` means any ID in area `10-19`.
-  - `11.ID` means any ID in category `11`.
+- `SYS.AC.ID`, e.g. `D25.11.11`. `SYS` is the system identifier and is usually left off.
+- `AC` is the area-category pair. `11` is a category. It sits in an area, a range of ten, `10-19`.
+- `ID` is the two digits after the decimal. `11.11` is an ID. IDs hold the content.
+- In the abstract, `AC.ID` means any ID, `11.ID` means any ID in category `11`, `1C.ID` means any ID in area `10-19`, and `A0` means any category ending in `0`.
 
-- We skip the zeros, leaving them 'up front' for system management and metadata.
-  - These are the 'standard zeros'.
-  - `00-09` is reserved.
-  - `A0` is reserved.
-  - `AC.00` through `AC.09` is reserved.
-  - Optionally, IDs ending in `0` are used as **headers**.
-    - They group the IDs they contain.
-    - This explains why we start our IDs at `11.11` and not `11.10`.
-    - They should only be used in static systems where the ID layout is known ahead of time; otherwise they lock you in to a structure, which is undesirable in flexible systems.
-  - This is an advanced concept that you should skip if unsure.
+Numbers ending in zero are reserved for system management. `00-09`, `A0`, and `AC.00` to `AC.09` are never filing destinations. This is why IDs start at `11.11`.
 
-# Extend-the-end
+An ID can be extended with a `+`, e.g. `12.34+ Child's health`. Read it as a child of `12.34`, or as an item that repeats across the system.
 
-- Optionally, an ID can be extended using a `+`.
-- E.g. `12.34 Health` can have a child, `12.34+ Child's health`.
-  - As in literally you use this to manage the health of your child.
-- Can also be used to describe repeating items across the system, e.g. `56.78+ Work log` where `+ Work log` is a thing you could attach to any ID.
-- The user may choose to keep these extended entries in a subfolder.
-- Use cautiously. As a heuristic, think "might this extended item be its own ID?" or "is this thing likely to repeat across the system?"
+# The JDex
 
-# The Johnny.Decimal index or JDex
+The JDex is the index: one note per ID, the master record of every ID in a system. It is usually an Obsidian or Bear vault. Creating the note is what creates the ID.
 
-- The central record of these IDs is the user's **JDex**.
-  - This is typically a notes app such as Obsidian.
-  - Each note e.g. `11.11 Birth certificate & proof of name.md` is a JDex entry.
+## Note structure
 
-## JDex structure
+This is the user's own convention. The server does not publish it. Assume a Markdown tool where the note's H1 comes from the filename.
 
-- We assume a Markdown-based tool such as Obsidian, where the note's H1 is provided by the title of the file.
+1. An optional description on the first line. It starts with `>` and is followed by a blank line.
+2. Metadata key/value pairs. The key, a colon, then the values on indented bullets below it.
+3. A blank line, a Markdown `---`, and another blank line.
+4. The user's freeform notes. This is where you write.
 
-- The first line in each note is optionally a description.
-  - It starts with a `>` and is followed by a blank line.
-
-- Metadata key/value pairs follow.
-  - Unless specified by the user, these are structured as bullet-lists with the key name, a colon, then the value(s) on an indented bullet on the next line(s). E.g.
-
-```
-- Related:
-  - [[11.12 Some other ID]]
-  - [[11.13 Yet another ID]]
-```
-
-- Users may prefer to use properly formed YAML.
-- The metadata is followed by a blank line, a Markdown <hr> `---`, and another blank line.
-- The user's freeform data follows.
-  - You may be asked to update the note. This is where you start.
+Some users prefer proper YAML frontmatter for the metadata. Follow whatever the neighbouring notes do.
 
 ## Standard metadata properties
 
-- `Data:`
-  - Freeform text explaining in which external repository data for this ID might be found.
-- `Related:`
-  - Typically a wiki-link to another note.
-  - As a rule, link _from_ the ID with the lowest number (11.11) _to_ the ID with the highest (99.99).
-  - Assume backlinks are provided by the JDex software; do not explicitly form two-way links.
-- `URL:`
-  - A URL.
+- `Data:` — freeform text saying where the data for this ID lives.
+- `Related:` — wiki-links to other notes. Link from the lower number to the higher, e.g. from `11.11` to `99.99`. The JDex software provides backlinks, so never write the reverse link.
+- `URL:` — a URL.
 
-## An example JDex entry
+## An example entry
 
 ```12.34 Title of the entry.md
 

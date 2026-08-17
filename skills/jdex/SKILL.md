@@ -85,7 +85,7 @@ So you can go straight there with a single glob:
 
 - JDex note: `$JD_JDEX/10-19*/13*/13.42*` (the `.md` file)
 - Filesystem folder: `$JD_ROOT/10-19*/13*/13.42*` (the actual files)
-- Child entry: `$JD_ROOT/10-19*/13*/13.42*/+CommBank/`
+- Child entry: `$JD_ROOT/10-19*/13*/13.42*/+Savings/`
 
 The numbers give you the path. Don't search for it.
 
@@ -142,7 +142,7 @@ find "$JD_JDEX" -name '*.md' -not -path '*/.obsidian/*'
 
 That is the expensive option — on a large vault it runs to thousands of lines. Narrow first when you can.
 
-Present the result as a JD path, e.g. `13 Money > 13.42+ CommBank`.
+Present the result as a JD path, e.g. `13 Money > 13.42+ Savings`.
 
 If nothing matches on titles, fall back to a content search: `obsidian search query="..." format=json`.
 
@@ -152,7 +152,7 @@ Only when the user wants the actual files, not just the JDex note. Go straight t
 
 ```
 ls $JD_ROOT/10-19*/13*/13.42*             # the ID folder
-ls $JD_ROOT/10-19*/13*/13.42*/+CommBank/  # a child entry
+ls $JD_ROOT/10-19*/13*/13.42*/+Savings/  # a child entry
 ```
 
 Not needed when they're just asking "where would I find X?".
