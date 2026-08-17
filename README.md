@@ -1,5 +1,7 @@
 # Johnny.Decimal skills
 
+> Notice: Claude wrote some of this.
+
 Skills that let an AI agent work with your [Johnny.Decimal](https://johnnydecimal.com) system. Read and write your JDex, find your files, and keep your notes up to date.
 
 ## Install
