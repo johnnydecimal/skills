@@ -13,8 +13,10 @@ description: Read and write to the user's JDex — their Johnny.Decimal index. U
 
 Johnny.Decimal knowledge comes from the `jd` MCP server, not from memory. The vault is the user's own overlay on it.
 
+- `get_account` — which systems the account owns and whether it has Pro. Call it once, before the first system or position tool, so you know which tools will answer.
 - `list_documentation`, `get_documentation` — how the Johnny.Decimal system works. Works with any account.
 - `get_system_outline`, `get_id` — the published LAS or SBS scaffold. Needs an account that owns that system.
+- `search_johnnys_positions`, `get_johnnys_position` — Johnny's own views, for judgement calls the documentation does not settle. Needs Pro. Opinion, not specification: the documentation tools hold the official text.
 
 Which to use:
 
