@@ -114,10 +114,10 @@ The numbers give you the path. Don't search for it.
 # Writing things
 
 - Before you write a note, read a neighbouring note in the same category. Match its layout — the user's own conventions beat any general rule.
-- You are encouraged to update the JDex, but you MUST annotate the parts you updated.
-  - Use the tag `#claude`.
-  - If you create a new header, tag the header. You do not need to tag subheaders.
-  - If you create or modify any inline text, tag the line.
+- You are encouraged to update the JDex, but you MUST annotate the parts you updated with the tag `#claude`, so the user can find and review them.
+  - A tagged header covers everything under it, subheaders included. Tag the header, nothing else.
+  - Outside a tagged section, tag each line you added or changed.
+  - Never tag a line the user wrote.
 - If you update something, follow wikilinks and check if anything in the linked pages needs to be updated.
   - If it seems obvious, just fix it.
   - If unsure, ask.
