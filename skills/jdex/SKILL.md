@@ -114,10 +114,20 @@ The numbers give you the path. Don't search for it.
 # Writing things
 
 - Before you write a note, read a neighbouring note in the same category. Match its layout — the user's own conventions beat any general rule.
-- You are encouraged to update the JDex, but you MUST annotate the parts you updated with the tag `#claude`, so the user can find and review them.
-  - A tagged header covers everything under it, subheaders included. Tag the header, nothing else.
-  - Outside a tagged section, tag each line you added or changed.
-  - Never tag a line the user wrote.
+- Sort the top-level frontmatter keys alphabetically. Frontmatter is the metadata block above the line, whose keys are `- Key:` with their values indented beneath. So `Owner:`, then `Related:`, then `URL:`. Leave the order of the values under each key alone.
+- You are encouraged to update the JDex. The user MUST be able to find and review what you wrote. Mark it one of two ways.
+  - If you wrote the file, or rewrote it in full, claim the whole file. Add an `Owner:` entry to the metadata block above the line. Use no inline tags.
+
+    ```
+    - Owner:
+    	- #claude
+    ```
+
+  - If the file is the user's and you are changing part of it, tag only what you changed.
+    - A tagged header covers everything under it, subheaders included. Tag the header, nothing else.
+    - Outside a tagged section, tag each line you added or changed.
+    - Never tag a line the user wrote.
+  - Either way, a wikilink you add above the line needs no tag. Above the line is the metadata block before the `---` separator, where `Related:` and `URL:` live. Links there are navigation, not content.
 - If you update something, follow wikilinks and check if anything in the linked pages needs to be updated.
   - If it seems obvious, just fix it.
   - If unsure, ask.
