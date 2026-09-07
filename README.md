@@ -57,13 +57,16 @@ Sign in when prompted. The documentation tools work with any account. The tools 
 
 `jdex` works on one ID at a time. It finds that ID in this order:
 
-1. A `.jd/config.json` in the current folder, or the nearest one above it:
+1. An ID at the start of the current folder's name, for example
+   `12.34 My folder`. Open Claude in an ID folder and it knows the ID.
+2. A `.jd/config.json` in the current folder, or the nearest one above it:
    ```json
    { "id": "12.34" }
    ```
    Add `"sys"` when you run more than one system.
-2. An ID in brackets in the folder name, for example `my-project [12.34]`.
-3. It asks you.
+3. An ID at the start of a parent folder's name, nearest first. This is for
+   when you are in a subfolder, such as `12.34 Receipts/2026-03`.
+4. It asks you.
 
 It will not guess, and it will not go looking through your JDex for a match.
 

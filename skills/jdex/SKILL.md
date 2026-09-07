@@ -6,25 +6,21 @@ description: Read and write to the user's JDex — their Johnny.Decimal index. U
 # Prerequisites
 
 - This skill requires the `johnnydecimal` skill for JD system context.
-- Do NOT load the `jdhq` skill unless the user explicitly asks you to document JDHQ source code.
 - This skill finds things and writes notes. It does not move files. If the user wants documents filed into their JD filesystem, tell them where each one belongs and let them move it, or ask before you move anything yourself.
 
 # The jd MCP server
 
 Johnny.Decimal knowledge comes from the `jd` MCP server, not from memory. The vault is the user's own overlay on it.
 
-- `get_account` — which systems the account owns and whether it has Pro. Call it once, before the first system or position tool, so you know which tools will answer.
-- `list_documentation`, `get_documentation` — how the Johnny.Decimal system works. Works with any account.
-- `get_system_outline`, `get_id` — the published LAS or SBS scaffold. Needs an account that owns that system.
-- `search_johnnys_positions`, `get_johnnys_position` — Johnny's own views, for judgement calls the documentation does not settle. Needs Pro. Opinion, not specification: the documentation tools hold the official text.
+Call `get_account` first. It says which systems the account owns and whether it has Pro, so you know which tools will answer. The tool descriptions say what each tool does. Do not keep a second copy of them here.
 
-Which to use:
+Which source answers:
 
-- Anything about the user's own content — their notes, their files, their business — is a vault question. Do not call the MCP for it.
-- Anything about how Johnny.Decimal itself works, where you are unsure, is a documentation call. Do not answer JD concept questions from memory.
-- Where both can answer, the vault note numbered `13.42` is the user's record of published ID `13.42`. Prefer the vault for how THEY use an ID, the MCP for what the published system says.
+- Their notes, their files, their business. Answer from the vault. Do not go to the MCP for facts about the user's own content.
+- How Johnny.Decimal itself works. Call the documentation tools. Do not answer JD concept questions from memory.
+- The active ID. Read both, in the order below.
 
-If the server is not connected, say so once and continue vault-only. Connect with:
+If the server is not connected, say so once, then continue vault-only. Say what is lost: without it you are answering Johnny.Decimal questions from memory, and that is where wrong answers come from. Connect with:
 
 ```
 claude mcp add --transport http jd https://johnnydecimal.com/mcp
@@ -94,15 +90,25 @@ The numbers give you the path. Don't search for it.
 # Which ID to use
 
 - Your **active ID** is determined once per session, in this priority order:
-  1. A `.jd/config.json` naming the ID this folder is about: `{"id": "12.34"}`, plus `"sys": "D25"` when the user runs more than one system. Walk up from the working directory to the first one you find, stopping at the home folder — the nearest wins. Do not read `~/.jd/config.json` for this; that file has no `id`.
-  2. A bracketed ID in the current folder name, e.g. `my-project [12.34]`.
-  3. An ID the user explicitly provides when asked.
+  1. An ID at the start of the current folder's name, e.g. `12.34 My folder`, or `W0189~21.41 Some package`. This is the normal case. People open Claude directly in an ID folder, so check this first. Match `NN.NN` or `WNNNN` only. A category (`13 Money`) and an area (`10-19 Life admin`) are not IDs.
+  2. A `.jd/config.json` naming the ID this folder is about: `{"id": "12.34"}`, plus `"sys": "D25"` when the user runs more than one system. Walk up from the working directory to the first one you find, stopping at the home folder. The nearest wins. Do not read `~/.jd/config.json` for this; that file has no `id`.
+  3. An ID at the start of a parent folder's name, nearest first. This covers working in a subfolder, e.g. `12.34 Receipts/2026-03`.
+  4. An ID the user explicitly provides when asked.
 - Once an active ID is set, **stick with it**. All reads, writes, and documentation go to that ID's JDex entry.
 - Do NOT browse, scan, or explore the JDex looking for other entries. The JDex is not a task list to trawl through. You work on the active ID.
 - Only switch to a different ID if the user explicitly gives you a new one — e.g. "now look at 56.78" or "update W0189". Mentions of other IDs in note content, related links, or conversation context are NOT instructions to switch.
 - If you're unsure whether the user wants a different ID, ask. Do not assume.
 
-- If there is no `.jd/config.json`, no bracketed ID, and the user hasn't provided one, STOP. Ask the user: "Which JDex ID should I use?" Do not search the JDex for a match, do not infer from the project name, and do not continue until the user gives you one.
+- If no folder in scope names an ID, there is no `.jd/config.json`, and the user hasn't provided one, STOP. Ask the user: "Which JDex ID should I use?" Do not search the JDex for a match, do not infer from the project name, and do not continue until the user gives you one.
+
+## Read the published ID first
+
+Once the active ID is set, call `get_id` for it, once. Then read their own JDex note for the same ID.
+
+- `get_id` returns the published definition of that ID, plus any **supplements** that apply to it: further readings, and ops manuals.
+- An **ops manual** is a step-by-step procedure. If one comes back, tell the user it exists and offer to follow it. Fetch its body with `get_id` only when they accept. Do not paste it into their note.
+- Their note beats the scaffold on how they actually work. The scaffold beats their note on what the published system says.
+- Skip the call when the server is not connected, or when the account does not own that system. Say so once and carry on.
 
 # Use of the JDex
 
