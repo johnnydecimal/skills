@@ -70,14 +70,15 @@ Sign in when prompted. The documentation tools work with any account. The tools 
 
 It will not guess, and it will not go looking through your JDex for a match.
 
-## Telling it your own conventions
+## AC.05, the agent's own ID
 
-`AC.05` is free in every Johnny.Decimal system. `jdex` treats it as the place
-for your own rules: how you name things, how you like a note laid out,
-anything you want followed in that part of your system.
+`AC.05` belongs to the agent. It keeps its notes there, so a later session can
+read them back, and it is where you leave standing instructions for that part
+of your system: how you name things, how you like a note laid out, anything you
+want followed.
 
-Write them as normal notes. The skill reads the narrowest one that applies,
-then the wider ones:
+They are normal notes, so you can read and edit them yourself at any time. The
+skill reads the narrowest one that applies, then the wider ones:
 
 1. `13.05`, for anything in category 13.
 2. `10.05`, for anything in area 10-19.

@@ -110,9 +110,9 @@ Once the active ID is set, call `get_id` for it, once. Then read their own JDex 
 - Their note beats the scaffold on how they actually work. The scaffold beats their note on what the published system says.
 - Skip the call when the server is not connected, or when the account does not own that system. Say so once and carry on.
 
-## AC.05: the user's instructions for you
+## AC.05 is yours
 
-`AC.05` holds the user's own instructions to you: how they name things, how they lay out a note, anything they want followed in that part of the system. Nothing in the published Johnny.Decimal systems uses `.05`, so a note there is always theirs.
+`AC.05` is the one ID you control. It holds two things: your own notes, kept so a later session can read them back, and the user's standing instructions for this part of their system. Nothing in the published Johnny.Decimal systems uses `.05` for anything else.
 
 Read them at the start of a session, narrowest first:
 
@@ -123,11 +123,14 @@ Read them at the start of a session, narrowest first:
 Glob them like any other ID, e.g. `$JD_JDEX/10-19*/13*/13.05*`. For a work package, use the ID it belongs to: `W0189~21.41` gives `21.05`, then `20.05`, then `00.05`.
 
 - A narrower note beats a wider one on the same point. All three beat any general rule in this skill.
-- These are the user's rules, not yours. Never write your own preferences into one.
+- Write to the one whose scope matches what you learned. Something true of the whole system goes in `00.05`, not in `13.05`.
+- Anything the user tells you to follow is theirs. Record it as their instruction, and never edit or overrule it.
+- Write what a later session needs and nothing more. This is a working note, not a log. Prune it when it goes stale.
+- It is still their vault. `AC.05` is not a place to put anything you would not show them.
 
 ### Creating an AC.05 note
 
-When the user gives you a convention to record and the note isn't there, create it.
+If the note you need isn't there, create it.
 
 Name it `AC.05 AI for <location> ✨`. Copy `<location>` from the `AC.01` note in the same place. `AC.01` is the inbox, and it always exists.
 
@@ -138,8 +141,8 @@ Name it `AC.05 AI for <location> ✨`. Copy `<location>` from the `AC.01` note i
 | `00.01 Inbox for the Small Business System` | `00.05 AI for the Small Business System ✨` |
 
 - Leave the ✨ off if the neighbouring notes carry no emoji. The user has them turned off.
+- Create it when you have something to put in it, not on the chance you might.
 - The JDex note is all you create. The filesystem folder is not yours to make.
-- Put the convention in the note and nothing else. Do not seed it with suggestions.
 
 # Use of the JDex
 
