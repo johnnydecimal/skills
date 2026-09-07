@@ -110,6 +110,23 @@ Once the active ID is set, call `get_id` for it, once. Then read their own JDex 
 - Their note beats the scaffold on how they actually work. The scaffold beats their note on what the published system says.
 - Skip the call when the server is not connected, or when the account does not own that system. Say so once and carry on.
 
+## Local conventions: AC.05
+
+`AC.05` holds the user's own conventions: how they name things, how they lay out a note, anything they want followed in that part of the system. Nothing in the published Johnny.Decimal systems uses `.05`, so a note there is always theirs.
+
+Read them at the start of a session, narrowest first:
+
+1. `<category>.05` for the active ID's category. ID `13.33` gives `13.05`.
+2. `<area management category>.05`. Area `10-19` gives `10.05`.
+3. `00.05`, for the whole system.
+
+Glob them the same way as any other ID, e.g. `$JD_JDEX/10-19*/13*/13.05*`. For a work package, use the ID it belongs to: `W0189~21.41` gives `21.05`, then `20.05`, then `00.05`.
+
+- Every one of these is optional, and most systems have none. Skip a note that isn't there. Don't mention it, and don't create it.
+- A narrower note beats a wider one on the same point. All three beat any general rule in this skill.
+- These are the user's rules, not yours. Never write your own preferences into an `AC.05`.
+- If the user states a convention while you work, offer to record it in the `AC.05` that fits its scope.
+
 # Use of the JDex
 
 - Each entry is a Markdown file. To reach one directly, glob using the ID's digits, as above.
@@ -120,7 +137,6 @@ Once the active ID is set, call `get_id` for it, once. Then read their own JDex 
 # Writing things
 
 - Before you write a note, read a neighbouring note in the same category. Match its layout — the user's own conventions beat any general rule.
-- Sort the top-level frontmatter keys alphabetically. Frontmatter is the metadata block above the line, whose keys are `- Key:` with their values indented beneath. So `Owner:`, then `Related:`, then `URL:`. Leave the order of the values under each key alone.
 - You are encouraged to update the JDex. The user MUST be able to find and review what you wrote. Mark it one of two ways.
   - If you wrote the file, or rewrote it in full, claim the whole file. Add an `Owner:` entry to the metadata block above the line. Use no inline tags.
 

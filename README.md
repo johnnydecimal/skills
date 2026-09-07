@@ -70,6 +70,24 @@ Sign in when prompted. The documentation tools work with any account. The tools 
 
 It will not guess, and it will not go looking through your JDex for a match.
 
+## Telling it your own conventions
+
+`AC.05` is free in every Johnny.Decimal system. `jdex` treats it as the place
+for your own rules: how you name things, how you like a note laid out,
+anything you want followed in that part of your system.
+
+Write them as normal notes. The skill reads the narrowest one that applies,
+then the wider ones:
+
+1. `13.05`, for anything in category 13.
+2. `10.05`, for anything in area 10-19.
+3. `00.05`, for the whole system.
+
+All three are optional and you start with none. A narrower note wins over a
+wider one, and any of them beats the skill's own defaults. The skill will not
+create these notes for you, but it will offer to add a rule to one when you
+state it.
+
 ## Two files called `config.json`
 
 They answer different questions. Tell them apart by their keys.
