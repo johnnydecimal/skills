@@ -83,10 +83,12 @@ then the wider ones:
 2. `10.05`, for anything in area 10-19.
 3. `00.05`, for the whole system.
 
-All three are optional and you start with none. A narrower note wins over a
-wider one, and any of them beats the skill's own defaults. The skill will not
-create these notes for you, but it will offer to add a rule to one when you
-state it.
+A narrower note wins over a wider one, and any of them beats the skill's own
+defaults.
+
+You start with none of these. Tell the skill a rule and it writes the note for
+you, named `AC.05 AI for <location> ✨` to match the `AC.01` inbox beside it,
+for example `13.05 AI for category 13 ✨`.
 
 ## Two files called `config.json`
 
