@@ -6,6 +6,23 @@ Skills that let an AI agent work with your [Johnny.Decimal](https://johnnydecima
 
 ## Install
 
+There are two routes. Pick one. Both together gives you every skill twice.
+
+### As a Claude Code plugin
+
+A read-only bundle that Claude Code updates for you.
+
+```
+claude plugin marketplace add johnnydecimal/skills
+claude plugin install johnnydecimal-skills@johnnydecimal
+```
+
+Or, from inside a session, `/plugin marketplace add johnnydecimal/skills` and then `/plugin install johnnydecimal-skills@johnnydecimal`.
+
+### As files you own
+
+For Codex, Cursor, and every other agent, and for Claude Code if you want to edit the skills.
+
 ```
 npx skills add johnnydecimal/skills
 ```
@@ -108,6 +125,19 @@ They answer different questions. Tell them apart by their keys.
 
 Neither overrides the other.
 
-## Licence
+## Contributing
 
-Use these however you like.
+Each skill is a folder under `skills/` with a `SKILL.md`. Beside it, `agents/openai.yaml` gives Codex a display name and a short description. Add both to a new skill, and add the folder to the `skills` list in `.claude-plugin/plugin.json`.
+
+The version number is in `.claude-plugin/plugin.json`. Bump it, and add a line to `CHANGELOG.md`, with every change that reaches a skill. Claude Code uses the version to decide when installed users get the update.
+
+Check your work with:
+
+```
+claude plugin validate . --strict
+claude plugin validate skills --strict
+```
+
+## License
+
+MIT. See `LICENSE`.

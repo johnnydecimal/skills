@@ -1,0 +1,22 @@
+{
+  "name": "johnnydecimal",
+  "owner": {
+    "name": "Johnny Noble",
+    "url": "https://johnnydecimal.com"
+  },
+  "description": "Johnny.Decimal agent skills, as an installable Claude Code plugin.",
+  "plugins": [
+    {
+      "name": "johnnydecimal-skills",
+      "source": "./",
+      "description": "Agent skills for working with your Johnny.Decimal system: read and write your JDex, find your files, and keep your notes up to date.",
+      "category": "productivity",
+      "keywords": [
+        "johnny-decimal",
+        "jdex",
+        "notes",
+        "obsidian"
+      ]
+    }
+  ]
+}

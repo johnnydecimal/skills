@@ -1,6 +1,8 @@
 ---
 name: jdex
 description: Read and write to the user's JDex — their Johnny.Decimal index. Use this skill whenever the user mentions their JDex, asks to check, fetch, or update their own documentation, references a Johnny.Decimal ID (e.g. 12.34, W0189), invokes you from a folder with an ID in its name, asks to find a file or document, asks where a document belongs in their JD system, or asks a factual question about their own life or business (e.g. "where does X money go?", "what's the process for Y?", "trace where Z ended up"). The JDex is their knowledge base — treat any investigative or research question about their own information as a JDex lookup first.
+license: MIT
+compatibility: Needs the jd MCP server at https://johnnydecimal.com/mcp, a ~/.jd/config.json, and a shell. Making new IDs needs the JD CLI. Content search needs the obsidian CLI.
 ---
 
 # Prerequisites
