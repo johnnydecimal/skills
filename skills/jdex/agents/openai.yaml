@@ -1,0 +1,3 @@
+interface:
+  display_name: "JDex"
+  short_description: "Read and write your Johnny.Decimal index"

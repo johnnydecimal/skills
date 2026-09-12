@@ -1,0 +1,3 @@
+interface:
+  display_name: "Johnny.Decimal reference"
+  short_description: "Reference material on the Johnny.Decimal system, used by the jdex skill"

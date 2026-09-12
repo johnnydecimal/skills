@@ -2,6 +2,7 @@
 name: johnnydecimal
 description: Reference material describing the Johnny.Decimal system — its structure, notation, and conventions. Use this to understand JD concepts when working with JD-related skills.
 user-invocable: false
+license: MIT
 ---
 
 # Where the knowledge lives

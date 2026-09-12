@@ -1,0 +1,24 @@
+{
+  "name": "johnnydecimal-skills",
+  "version": "1.0.0",
+  "description": "Agent skills for working with your Johnny.Decimal system. Read and write your JDex, find your files, and keep your notes up to date.",
+  "author": {
+    "name": "Johnny Noble",
+    "url": "https://johnnydecimal.com"
+  },
+  "homepage": "https://johnnydecimal.com/jdhq/agent-skills",
+  "repository": "https://github.com/johnnydecimal/skills",
+  "license": "MIT",
+  "keywords": [
+    "johnny-decimal",
+    "johnnydecimal",
+    "jdex",
+    "organisation",
+    "notes",
+    "obsidian"
+  ],
+  "skills": [
+    "./skills/jdex",
+    "./skills/johnnydecimal"
+  ]
+}
