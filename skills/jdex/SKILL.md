@@ -150,7 +150,7 @@ Name it `AC.05 AI for <location> ✨`. Copy `<location>` from the `AC.01` note i
 
 - Leave the ✨ off if the neighbouring notes carry no emoji. The user has them turned off.
 - Create it when you have something to put in it, not on the chance you might.
-- The JDex note is all you create. The filesystem folder is not yours to make.
+- The JDex note is all you create here. The filesystem folder is not yours to make. This is the one note you write by hand. Every other new ID goes through the CLI, under Creating things below.
 
 # Use of the JDex
 
@@ -178,6 +178,26 @@ Name it `AC.05 AI for <location> ✨`. Copy `<location>` from the `AC.01` note i
 - If you update something, follow wikilinks and check if anything in the linked pages needs to be updated.
   - If it seems obvious, just fix it.
   - If unsure, ask.
+
+# Creating things
+
+The JD CLI makes new IDs and work packages. Never write a new ID's note or folder by hand. The CLI picks the next free number, fills the note from the user's template, and makes the folder. Each of those is easy to get wrong by hand.
+
+The program is `~/.jd/cli/bin/jd`. Nothing has to be sourced first. Check it with `~/.jd/cli/bin/jd help`.
+
+- A new ID: `~/.jd/cli/bin/jd new id 21 A title`. This makes the next free ID in category 21. Give `21.34` instead of `21` for that exact ID. The user names the category. A new ID needs no active ID first.
+- A new work package: `~/.jd/cli/bin/jd new wp 21.41 A title`. This makes the next free W number, and the package belongs to `21.41`.
+- The title needs no quotes. It is every word up to the first word that starts with `--`.
+- `--dry-run` says what it would make, and makes nothing. Use it when you are not sure.
+- `--json` prints one object to branch on: `{ "ok": true, ... }` or `{ "ok": false, "code": "...", ... }`. Its `toFill` list names the template tokens you gave no value. Each token has a flag: `{{?SCOPE}}` is `--scope`. Ask the user for the values, or pass them when you know them.
+- With more than one system, `--system` goes first: `~/.jd/cli/bin/jd --system P76 new id 21 A title`.
+- `jd new` is a beta feature. If jd says beta is off, tell the user and ask before you run `jd beta on`.
+
+The ID it made is your active ID from then on. Read its note before you write to it. The template shapes it, and the user's conventions are in there.
+
+If the CLI is not installed, call `install_cli` on the server and follow its steps. If the server is not connected either, stop and say so. Do not make the ID by hand.
+
+The one exception is the `AC.05` note, above. It has a fixed number, and its folder is not yours to make, so you write that note yourself.
 
 # Finding things
 

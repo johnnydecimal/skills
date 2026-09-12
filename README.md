@@ -18,6 +18,8 @@ Or copy the folders in `skills/` into your agent's skills directory yourself. Fo
 
 Reads and writes your JDex, your Johnny.Decimal index. Ask it to find a file, look up an ID, trace how something works, or write a note. Invoke it by mentioning your JDex, for example "read my jdex and catch up".
 
+To make a new ID or work package, it runs the JD CLI, `jd new`. It never writes a new ID by hand. If the CLI is not installed, it gets the install steps from the MCP server.
+
 ### `johnnydecimal`
 
 Reference material on how Johnny.Decimal works. You do not invoke this one. The `jdex` skill loads it when it needs it.
@@ -52,6 +54,10 @@ claude mcp add --transport http jd https://johnnydecimal.com/mcp
 ```
 
 Sign in when prompted. The documentation tools work with any account. The tools that serve a published system need an account that owns that system.
+
+### 3. Install the JD CLI, if you want new IDs made
+
+`jd new` makes IDs and work packages. Ask your agent to install the JD CLI. The MCP server has the steps. Without it, the skill reads and writes notes but does not make new IDs.
 
 ## Which ID am I working on?
 
