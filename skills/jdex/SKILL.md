@@ -79,9 +79,17 @@ The JD numbering makes paths deterministic. The digits of the ID give you the fo
 
 Work packages are an optional extra area, `W0000-9999`, holding IDs of the form `W0189`. They sit directly in that area with no category level. The name usually carries a `~` and a normal ID — `W0189~21.41` — meaning that package belongs to `21.41`. Glob on the number alone, `W0189*`, because the rest of the name varies. An entry may be a single `.md` or a folder of them.
 
+The filesystem always nests like this. The JDex does not, so establish its layout once, with a single `ls` of `$JD_JDEX`:
+
+- **Nested** — the root holds area folders, `10-19 Life admin`. A note is at `$JD_JDEX/10-19*/13*/13.42*`. The JDHQ Obsidian downloads default to this.
+- **Flat** — the root holds the notes themselves, `13.42 Some title.md`. A note is at `$JD_JDEX/13.42*`. A notes app with no folders gives you this, and it is offered as a download too.
+- **One file** — the root is a single `.md`. Read it and work inside it.
+
+Both of the first two are normal. Do not treat a flat JDex as a broken nested one.
+
 So you can go straight there with a single glob:
 
-- JDex note: `$JD_JDEX/10-19*/13*/13.42*` (the `.md` file)
+- JDex note: `$JD_JDEX/13.42*` when flat, `$JD_JDEX/10-19*/13*/13.42*` when nested (the `.md` file)
 - Filesystem folder: `$JD_ROOT/10-19*/13*/13.42*` (the actual files)
 - Child entry: `$JD_ROOT/10-19*/13*/13.42*/+Savings/`
 
@@ -120,7 +128,7 @@ Read them at the start of a session, narrowest first:
 2. `<area management category>.05`. Area `10-19` gives `10.05`.
 3. `00.05`, for the whole system.
 
-Glob them like any other ID, e.g. `$JD_JDEX/10-19*/13*/13.05*`. For a work package, use the ID it belongs to: `W0189~21.41` gives `21.05`, then `20.05`, then `00.05`.
+Glob them like any other ID, following the JDex layout above: `$JD_JDEX/13.05*` when flat, `$JD_JDEX/10-19*/13*/13.05*` when nested. For a work package, use the ID it belongs to: `W0189~21.41` gives `21.05`, then `20.05`, then `00.05`.
 
 - A narrower note beats a wider one on the same point. All three beat any general rule in this skill.
 - Write to the one whose scope matches what you learned. Something true of the whole system goes in `00.05`, not in `13.05`.
@@ -179,9 +187,10 @@ Name it `AC.05 AI for <location> ✨`. Copy `<location>` from the `AC.01` note i
 
 The numbering exists so you don't need the whole index. Walk down it.
 
-1. `ls` the jdex root. That gives you the areas, a handful of lines. It is normally a folder of area folders — if it turns out to be a single file, read that file and stop here.
-2. List the categories inside the area the question points at. If you can't tell yet, list them across all areas. Still small.
-3. List the `.md` files in the likely category. Those are the entry titles. Scan them for a match.
+1. `ls` the jdex root. That tells you the layout. A few lines when nested, one line per ID when flat. If it is a single file, read that file and stop here.
+2. **Nested** — the root gave you the areas. List the categories inside the area the question points at, then the `.md` files in the likely category. If you can't tell which area yet, list the categories across all of them. Still small.
+   **Flat** — the root already gave you every entry. Filter it by category, e.g. `ls "$JD_JDEX"/13.*`.
+3. Those are the entry titles. Scan them for a match.
 
 Entries are named `AC.ID Title.md`, or `W0189~21.41 Title.md` for a work package. `AC.00` to `AC.09` are system management, not filing destinations — ignore them. Do not read the note bodies at any step.
 
