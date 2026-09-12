@@ -1,5 +1,7 @@
 # Changelog
 
+> Written by Claude.
+
 The version number lives in `.claude-plugin/plugin.json`. Claude Code uses it to decide when installed users get an update, so bump it with every change that reaches a skill.
 
 ## 1.0.0
