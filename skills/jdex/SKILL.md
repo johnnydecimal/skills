@@ -203,11 +203,11 @@ The one exception is the `AC.05` note, above. It has a fixed number, and its fol
 
 # Moving in
 
-Moving in files the user's existing files into the system they have installed. The process is the server's, not this skill's. When the user wants their existing files in their system, call `move_in` with the system, `las` or `sbs`, and follow the text it returns. This skill carries the local half only. It repeats no step of the process.
+Moving in puts the user's existing files into the system they have installed. The server's `move_in` tool holds the process. This skill holds the rules for the CLI and the note, and nothing more. When the user wants their existing files in their system, call `move_in` with the system, `las` or `sbs`. Follow the text it returns.
 
-- Files move with the CLI: `~/.jd/cli/bin/jd move <path> <id> --json`. Use that full path. Never run `mv`. Never delete a file or a folder. This is the same rule as new IDs and work packages: the CLI writes to the user's machine, not you. `jd move` is a beta feature, like `jd new`.
-- The run's state lives in the `00.05` note, under one heading, `## yyyy-mm-dd Moving in`. The tool names the sub-headings under it. Read that section first in every session, before anything else. The section is yours: tag it as Writing things says.
-- Reading inside files is the user's choice. The process asks once and records the answer in that note. Keep to the recorded answer. Do not ask again.
+- Files move with `~/.jd/cli/bin/jd move`. Use that full path. Never run `mv`. Never delete a file or a folder. The CLI moves files, not you. The same rule holds for new IDs, under Creating things above.
+- The run's state lives in the `00.05` note, under one heading, `## yyyy-mm-dd Moving in`. `move_in` names the sub-headings under it. Read that section first in every session. The section is yours. Mark it the way Writing things, above, says.
+- Reading inside files is the user's choice. `move_in` asks once and records the answer in that note. Keep to the recorded answer. Do not ask again.
 
 # Finding things
 

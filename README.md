@@ -37,7 +37,7 @@ Reads and writes your JDex, your Johnny.Decimal index. Ask it to find a file, lo
 
 To make a new ID or work package, it runs the JD CLI, `jd new`. It never writes a new ID by hand. If the CLI is not installed, it gets the install steps from the MCP server.
 
-To file your existing files into your system, it calls the server's `move_in` tool and follows that process. The JD CLI moves each file, with `jd move`. The skill moves nothing itself, and nothing is deleted.
+To put your existing files into your system, it calls the server's `move_in` tool and follows that process. The JD CLI moves each file, with `jd move`. The skill moves nothing itself. Neither the skill nor the CLI deletes a file.
 
 ### `johnnydecimal`
 
@@ -76,7 +76,7 @@ Sign in when prompted. The documentation tools work with any account. The tools 
 
 ### 3. Install the JD CLI, if you want new IDs made or files moved
 
-`jd new` makes IDs and work packages. `jd move` files your existing files. Ask your agent to install the JD CLI. The MCP server has the steps. Without it, the skill reads and writes notes but does not make new IDs.
+`jd new` makes IDs and work packages. `jd move` puts your existing files into your system. Ask your agent to install the JD CLI. The MCP server has the steps. Without it, the skill reads and writes notes, but it makes no new IDs and moves no files.
 
 ## Which ID am I working on?
 
