@@ -1,6 +1,6 @@
 {
   "name": "johnnydecimal-skills",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Agent skills for working with your Johnny.Decimal system. Read and write your JDex, find your files, and keep your notes up to date.",
   "author": {
     "name": "Johnny Noble",

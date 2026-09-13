@@ -2,13 +2,13 @@
 name: jdex
 description: Read and write to the user's JDex — their Johnny.Decimal index. Use this skill whenever the user mentions their JDex, asks to check, fetch, or update their own documentation, references a Johnny.Decimal ID (e.g. 12.34, W0189), invokes you from a folder with an ID in its name, asks to find a file or document, asks where a document belongs in their JD system, or asks a factual question about their own life or business (e.g. "where does X money go?", "what's the process for Y?", "trace where Z ended up"). The JDex is their knowledge base — treat any investigative or research question about their own information as a JDex lookup first.
 license: MIT
-compatibility: Needs the jd MCP server at https://johnnydecimal.com/mcp, a ~/.jd/config.json, and a shell. Making new IDs needs the JD CLI. Content search needs the obsidian CLI.
+compatibility: Needs the jd MCP server at https://johnnydecimal.com/mcp, a ~/.jd/config.json, and a shell. Making new IDs and moving files needs the JD CLI. Content search needs the obsidian CLI.
 ---
 
 # Prerequisites
 
 - This skill requires the `johnnydecimal` skill for JD system context.
-- This skill finds things and writes notes. It does not move files. If the user wants documents filed into their JD filesystem, tell them where each one belongs and let them move it, or ask before you move anything yourself.
+- This skill finds things and writes notes. It moves no files itself. If the user wants their existing files filed into their system, the JD CLI moves them, under Moving in below. Otherwise, tell the user where each file belongs and let them move it.
 
 # The jd MCP server
 
@@ -200,6 +200,14 @@ The ID it made is your active ID from then on. Read its note before you write to
 If the CLI is not installed, call `install_cli` on the server and follow its steps. If the server is not connected either, stop and say so. Do not make the ID by hand.
 
 The one exception is the `AC.05` note, above. It has a fixed number, and its folder is not yours to make, so you write that note yourself.
+
+# Moving in
+
+Moving in files the user's existing files into the system they have installed. The process is the server's, not this skill's. When the user wants their existing files in their system, call `move_in` with the system, `las` or `sbs`, and follow the text it returns. This skill carries the local half only. It repeats no step of the process.
+
+- Files move with the CLI: `~/.jd/cli/bin/jd move <path> <id> --json`. Use that full path. Never run `mv`. Never delete a file or a folder. This is the same rule as new IDs and work packages: the CLI writes to the user's machine, not you. `jd move` is a beta feature, like `jd new`.
+- The run's state lives in the `00.05` note, under one heading, `## yyyy-mm-dd Moving in`. The tool names the sub-headings under it. Read that section first in every session, before anything else. The section is yours: tag it as Writing things says.
+- Reading inside files is the user's choice. The process asks once and records the answer in that note. Keep to the recorded answer. Do not ask again.
 
 # Finding things
 
