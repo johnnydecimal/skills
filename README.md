@@ -133,6 +133,13 @@ Each skill is a folder under `skills/` with a `SKILL.md`. Beside it, `agents/ope
 
 The version number is in `.claude-plugin/plugin.json`. Bump it, and add a line to `CHANGELOG.md`, with every change that reaches a skill. Claude Code uses the version to decide when installed users get the update.
 
+To release, merge to `main`, then tag the merge commit `vX.Y.Z` and make a GitHub release with the changelog entry as its body:
+
+```
+git tag -a v1.1.0 -m "1.1.0" && git push origin v1.1.0
+gh release create v1.1.0 --title 1.1.0 --notes-file <the entry>
+```
+
 Check your work with:
 
 ```
