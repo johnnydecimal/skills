@@ -2,7 +2,7 @@
 
 > Written by Claude.
 
-The version number lives in `.claude-plugin/plugin.json`. Claude Code uses it to decide when installed users get an update, so bump it with every change that reaches a skill: 1.1.0, 1.2.0, and so on. Each release has a git tag, for example `v1.1.0`, and a GitHub release with the same body as its entry here.
+This repo uses [semantic versioning](https://semver.org). The version number lives in `.claude-plugin/plugin.json`. Claude Code uses it to decide when installed users get an update, so bump it with every change that reaches a skill. Each release has a git tag, for example `v1.1.0`, and a GitHub release with the same body as its entry here.
 
 ## 1.1.0 – 2026-09-13
 
