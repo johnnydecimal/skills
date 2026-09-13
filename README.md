@@ -37,6 +37,8 @@ Reads and writes your JDex, your Johnny.Decimal index. Ask it to find a file, lo
 
 To make a new ID or work package, it runs the JD CLI, `jd new`. It never writes a new ID by hand. If the CLI is not installed, it gets the install steps from the MCP server.
 
+To put your existing files into your system, it calls the server's `move_in` tool and follows that process. The JD CLI moves each file, with `jd move`. The skill moves nothing itself. Neither the skill nor the CLI deletes a file.
+
 ### `johnnydecimal`
 
 Reference material on how Johnny.Decimal works. You do not invoke this one. The `jdex` skill loads it when it needs it.
@@ -72,9 +74,9 @@ claude mcp add --transport http jd https://johnnydecimal.com/mcp
 
 Sign in when prompted. The documentation tools work with any account. The tools that serve a published system need an account that owns that system.
 
-### 3. Install the JD CLI, if you want new IDs made
+### 3. Install the JD CLI, if you want new IDs made or files moved
 
-`jd new` makes IDs and work packages. Ask your agent to install the JD CLI. The MCP server has the steps. Without it, the skill reads and writes notes but does not make new IDs.
+`jd new` makes IDs and work packages. `jd move` puts your existing files into your system. Ask your agent to install the JD CLI. The MCP server has the steps. Without it, the skill reads and writes notes, but it makes no new IDs and moves no files.
 
 ## Which ID am I working on?
 
@@ -130,6 +132,13 @@ Neither overrides the other.
 Each skill is a folder under `skills/` with a `SKILL.md`. Beside it, `agents/openai.yaml` gives Codex a display name and a short description. Add both to a new skill, and add the folder to the `skills` list in `.claude-plugin/plugin.json`.
 
 The version number is in `.claude-plugin/plugin.json`. Bump it, and add a line to `CHANGELOG.md`, with every change that reaches a skill. Claude Code uses the version to decide when installed users get the update.
+
+To release, merge to `main`, then tag the merge commit `vX.Y.Z` and make a GitHub release with the changelog entry as its body:
+
+```
+git tag -a v1.1.0 -m "1.1.0" && git push origin v1.1.0
+gh release create v1.1.0 --title 1.1.0 --notes-file <the entry>
+```
 
 Check your work with:
 
