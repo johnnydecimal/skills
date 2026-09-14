@@ -220,11 +220,7 @@ The published rules for names and subfolders live on the server. Call `get_docum
 
 ## How it moves
 
-The move is one `jd move` call, the same as Moving in says. Never run `mv`, not even to rename.
-
-- `--as <name>` gives the file its proposed name as it moves: `~/.jd/cli/bin/jd move ~/Downloads/x.pdf 21.34 --as "2024-03-14 Statement.pdf"`.
-- `<id>/<subfolder>` puts it in a subfolder of the ID, one level down: `~/.jd/cli/bin/jd move ~/Downloads/x.pdf "21.34/Statements ANZ"`. The CLI makes the subfolder when it does not exist.
-- Both need JD CLI 3.3.0 or later. `~/.jd/cli/bin/jd version` says which you have.
+The move is one `jd move` call, the same as Moving in says. Never run `mv`, not even to rename. `jd move` renames the file as it moves, and puts it in a subfolder of the ID, which it makes when needed. Run `~/.jd/cli/bin/jd move --help` for the syntax. Do not work from memory. If the help lists neither, the CLI is old. Tell the user. `install_cli` on the server has the update steps. Ask before you run them.
 
 ## The proposed name
 
