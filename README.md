@@ -39,6 +39,8 @@ To make a new ID or work package, it runs the JD CLI, `jd new`. It never writes 
 
 To put your existing files into your system, it calls the server's `move_in` tool and follows that process. The JD CLI moves each file, with `jd move`. The skill moves nothing itself. Neither the skill nor the CLI deletes a file.
 
+When it files a file, it proposes a name for it. A batch with an obvious group, such as one account or one trip, gets a subfolder, and you say yes first. The rules come from the published pages on naming files and subfolder patterns, so the skill keeps no copy of them.
+
 ### `johnnydecimal`
 
 Reference material on how Johnny.Decimal works. You do not invoke this one. The `jdex` skill loads it when it needs it.
