@@ -4,6 +4,33 @@
 
 This repo uses [semantic versioning](https://semver.org). The version number lives in `.claude-plugin/plugin.json`. Claude Code uses it to decide when installed users get an update, so bump it with every change that reaches a skill. Each release has a git tag, for example `v1.1.0`, and a GitHub release with the same body as its entry here.
 
+## 1.2.0 – 2026-09-15
+
+> AI generated. Reviewed by Johnny.
+
+This release adds a Filing section to the `jdex` skill. Filing puts a
+file into an ID, under a name that sorts.
+
+### Features
+
+- `jdex` has a Filing section. It holds the agent-side rules: the
+  proposed name, the subfolder decision, the note line, and a folder
+  that moves whole. The published rules for names and subfolders come
+  from the server, with `get_documentation` for `naming-files` and
+  `subfolder-patterns`.
+- The move is one `jd move` call. It renames the file and makes the
+  subfolder as it goes. The agent reads `jd move --help` for the
+  syntax, so the skill carries no copy of it.
+- The skill loads when the user asks to file, name, or rename a file.
+- Moving in points at Filing for names and subfolders.
+
+### Changes
+
+- The README says the skill proposes a name for each file, and a
+  subfolder when a batch has a group.
+- The prerequisites line says the JD CLI moves files under Moving in
+  and Filing. Before, it said the agent moves no file outside Moving in.
+
 ## 1.1.0 – 2026-09-13
 
 > AI generated. Reviewed by Johnny.
