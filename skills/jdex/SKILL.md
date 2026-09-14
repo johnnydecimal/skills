@@ -8,7 +8,7 @@ compatibility: Needs the jd MCP server at https://johnnydecimal.com/mcp, a ~/.jd
 # Prerequisites
 
 - This skill requires the `johnnydecimal` skill for JD system context.
-- This skill finds things and writes notes. It moves no files itself. If the user wants their existing files filed into their system, the JD CLI moves them, under Moving in below. Otherwise, tell the user where each file belongs and let them move it.
+- This skill finds things and writes notes. It moves no files itself. The JD CLI moves them, under Moving in and Filing below. Without the CLI, tell the user where each file belongs and let them move it.
 
 # The jd MCP server
 
@@ -217,6 +217,14 @@ Filing puts a file into an ID, under a name that sorts. It happens during Moving
 The published rules for names and subfolders live on the server. Call `get_documentation` for `naming-files` and for `subfolder-patterns`, and follow what they say. Do not keep a copy here.
 
 `move_in` says when to propose and that the user says yes per batch. This section says what a good name and a good subfolder are. Neither repeats the other.
+
+## How it moves
+
+The move is one `jd move` call, the same as Moving in says. Never run `mv`, not even to rename.
+
+- `--as <name>` gives the file its proposed name as it moves: `~/.jd/cli/bin/jd move ~/Downloads/x.pdf 21.34 --as "2024-03-14 Statement.pdf"`.
+- `<id>/<subfolder>` puts it in a subfolder of the ID, one level down: `~/.jd/cli/bin/jd move ~/Downloads/x.pdf "21.34/Statements ANZ"`. The CLI makes the subfolder when it does not exist.
+- Both need JD CLI 3.3.0 or later. `~/.jd/cli/bin/jd version` says which you have.
 
 ## The proposed name
 

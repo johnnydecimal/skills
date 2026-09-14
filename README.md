@@ -78,7 +78,7 @@ Sign in when prompted. The documentation tools work with any account. The tools 
 
 ### 3. Install the JD CLI, if you want new IDs made or files moved
 
-`jd new` makes IDs and work packages. `jd move` puts your existing files into your system. Ask your agent to install the JD CLI. The MCP server has the steps. Without it, the skill reads and writes notes, but it makes no new IDs and moves no files.
+`jd new` makes IDs and work packages. `jd move` puts your files into your system, and 3.3.0 or later renames them and makes subfolders as it goes. Ask your agent to install the JD CLI. The MCP server has the steps. Without it, the skill reads and writes notes, but it makes no new IDs and moves no files.
 
 ## Which ID am I working on?
 

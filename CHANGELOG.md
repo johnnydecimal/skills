@@ -18,6 +18,9 @@ file into an ID, under a name that sorts.
   that moves whole. The published rules for names and subfolders come
   from the server, with `get_documentation` for `naming-files` and
   `subfolder-patterns`.
+- The move is one `jd move` call. `--as <name>` applies the proposed
+  name, and `<id>/<subfolder>` puts the file in a subfolder. Both need
+  JD CLI 3.3.0 or later.
 - The skill loads when the user asks to file, name, or rename a file.
 - Moving in points at Filing for names and subfolders.
 
@@ -25,6 +28,8 @@ file into an ID, under a name that sorts.
 
 - The README says the skill proposes a name for each file, and a
   subfolder when a batch has a group.
+- The prerequisites line says the JD CLI moves files under Moving in
+  and Filing. Before, it said the agent moves no file outside Moving in.
 
 ## 1.1.0 – 2026-09-13
 
