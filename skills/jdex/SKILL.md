@@ -1,6 +1,6 @@
 ---
 name: jdex
-description: Read and write to the user's JDex — their Johnny.Decimal index. Use this skill whenever the user mentions their JDex, asks to check, fetch, or update their own documentation, references a Johnny.Decimal ID (e.g. 12.34, W0189), invokes you from a folder with an ID in its name, asks to find a file or document, asks where a document belongs in their JD system, or asks a factual question about their own life or business (e.g. "where does X money go?", "what's the process for Y?", "trace where Z ended up"). The JDex is their knowledge base — treat any investigative or research question about their own information as a JDex lookup first.
+description: Read and write to the user's JDex — their Johnny.Decimal index. Use this skill whenever the user mentions their JDex, asks to check, fetch, or update their own documentation, references a Johnny.Decimal ID (e.g. 12.34, W0189), invokes you from a folder with an ID in its name, asks to find a file or document, asks to file, name, or rename a file (e.g. "file this", "name this", "put this download away"), asks where a document belongs in their JD system, or asks a factual question about their own life or business (e.g. "where does X money go?", "what's the process for Y?", "trace where Z ended up"). The JDex is their knowledge base — treat any investigative or research question about their own information as a JDex lookup first.
 license: MIT
 compatibility: Needs the jd MCP server at https://johnnydecimal.com/mcp, a ~/.jd/config.json, and a shell. Making new IDs and moving files needs the JD CLI. Content search needs the obsidian CLI.
 ---
@@ -208,6 +208,53 @@ Moving in puts the user's existing files into the system they have installed. Th
 - Files move with `~/.jd/cli/bin/jd move`. Use that full path. Never run `mv`. Never delete a file or a folder. The CLI moves files, not you. The same rule holds for new IDs, under Creating things above.
 - The run's state lives in the `00.05` note, under one heading, `## yyyy-mm-dd Moving in`. `move_in` names the sub-headings under it. Read that section first in every session. The section is yours. Mark it the way Writing things, above, says.
 - Reading inside files is the user's choice. `move_in` asks once and records the answer in that note. Keep to the recorded answer. Do not ask again.
+- Filing, below, says what a good name and a good subfolder are.
+
+# Filing
+
+Filing puts a file into an ID, under a name that sorts. It happens during Moving in, and at any other time the user asks. Which ID the file goes in is decided under Which ID to use, above. This section is about the target: the name, the subfolder, and the note line.
+
+The published rules for names and subfolders live on the server. Call `get_documentation` for `naming-files` and for `subfolder-patterns`, and follow what they say. Do not keep a copy here.
+
+`move_in` says when to propose and that the user says yes per batch. This section says what a good name and a good subfolder are. Neither repeats the other.
+
+## The proposed name
+
+Propose a better name for every file you file.
+
+- Date first, `yyyy-mm-dd`, when you can find one. Look in the file name, then the file metadata, then the content. Read the content only if the user allowed it. Moving in, above, records that answer.
+- Use `yyyy-mm` or `yyyy` when that is all you know. A file with no findable date gets no date. Never invent one.
+- Then what the thing is, then who it is from or for. For example, `2024-03-31 Statement ANZ.pdf`. Sentence case. Spaces between the words.
+- Keep a reference number from the original name, for example an invoice number.
+- Drop a counter like `(1)`, `copy`, or `FINAL`. Drop a version tag when there is only one version. Drop a camera or scanner prefix such as `IMG_` or `Scan`.
+- Drop any word the ID's own name already says. In `13.31 Purchase receipts`, a file does not need "receipt" in its name.
+- Keep the extension as you found it.
+
+## Subfolders
+
+A subfolder needs two things. Without both, the files go loose in the ID.
+
+1. A group. Several files that share one thing: one account, one trip, one supplier.
+2. A pattern. One of the three on the `subfolder-patterns` page: date, alphabet, or `10`–`90`.
+
+About five files is a guide for "several". You make the call. The user says yes before you make a subfolder.
+
+## The note line
+
+For every subfolder you make, add one line to the ID's JDex note, below the `---`. The line gives the subfolder's name and what it holds.
+
+```
+- Subfolder `Statements ANZ`: monthly statements, one file per month.
+```
+
+Mark it the way Writing things, above, says.
+
+## A folder that moves whole
+
+- The folder gets a proposed name, like any file.
+- Look inside it. If the files inside follow a pattern, move the folder as you found it.
+- If the inside is a mess, propose a rename pass and ask. You decide which case it is.
+- Never rename inside a folder without asking.
 
 # Finding things
 
