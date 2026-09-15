@@ -4,6 +4,27 @@
 
 This repo uses [semantic versioning](https://semver.org). The version number lives in `.claude-plugin/plugin.json`. Claude Code uses it to decide when installed users get an update, so bump it with every change that reaches a skill. Each release has a git tag, for example `v1.1.0`, and a GitHub release with the same body as its entry here.
 
+## 1.3.0 – 2026-09-15
+
+> AI generated. Reviewed by Johnny.
+
+This release gives the configuration file one home, the JD CLI, and
+makes the `jdex` skill load for a move in.
+
+### Changes
+
+- `jdex` no longer finds the user's systems or writes
+  `~/.jd/config.json` itself. When the config is missing, it runs
+  `jd agent-setup`, the CLI's own prompt, and follows it. If the CLI
+  is not installed, it calls `install_cli` on the server first. The
+  search steps and the JSON example are gone from the skill.
+- The skill loads when the user asks to move in to their system or to
+  put their existing files into it, so the Moving in section is in
+  context before `move_in` is called.
+- `jd move` is named next to `jd new` as a beta feature the user
+  turns on.
+- The README says the CLI writes the config when you skip it.
+
 ## 1.2.0 – 2026-09-15
 
 > AI generated. Reviewed by Johnny.

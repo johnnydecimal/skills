@@ -1,6 +1,6 @@
 ---
 name: jdex
-description: Read and write to the user's JDex — their Johnny.Decimal index. Use this skill whenever the user mentions their JDex, asks to check, fetch, or update their own documentation, references a Johnny.Decimal ID (e.g. 12.34, W0189), invokes you from a folder with an ID in its name, asks to find a file or document, asks to file, name, or rename a file (e.g. "file this", "name this", "put this download away"), asks where a document belongs in their JD system, or asks a factual question about their own life or business (e.g. "where does X money go?", "what's the process for Y?", "trace where Z ended up"). The JDex is their knowledge base — treat any investigative or research question about their own information as a JDex lookup first.
+description: Read and write to the user's JDex — their Johnny.Decimal index. Use this skill whenever the user mentions their JDex, asks to check, fetch, or update their own documentation, references a Johnny.Decimal ID (e.g. 12.34, W0189), invokes you from a folder with an ID in its name, asks to find a file or document, asks to file, name, or rename a file (e.g. "file this", "name this", "put this download away"), asks to move in to their system or to put their existing files into it (e.g. "move me in", "sort out my Downloads"), asks where a document belongs in their JD system, or asks a factual question about their own life or business (e.g. "where does X money go?", "what's the process for Y?", "trace where Z ended up"). The JDex is their knowledge base — treat any investigative or research question about their own information as a JDex lookup first.
 license: MIT
 compatibility: Needs the jd MCP server at https://johnnydecimal.com/mcp, a ~/.jd/config.json, and a shell. Making new IDs and moving files needs the JD CLI. Content search needs the obsidian CLI.
 ---
@@ -37,32 +37,7 @@ There are two parallel structures. Both use the same JD hierarchy. Their paths c
 
 With several systems in the config, use the entry marked `default: true` unless the user names another.
 
-If the config is missing, or the system you want has no `jdex` path, find what's missing and offer to save it:
-
-1. Look first. Areas are folders named `NN-NN Title`, e.g. `10-19 Life admin`. A shallow search of `~/Documents`, `~/Dropbox`, `~/Library/Mobile Documents` and similar usually finds the filesystem root. The index is often an Obsidian vault — look for a `.obsidian` folder.
-2. Confirm with the user. Show what you found and ask if it's right. If you found nothing, ask them for the two paths.
-3. Offer to write `~/.jd/config.json` so nothing has to ask again. Ask before writing.
-
-```json
-{
-  "version": 1,
-  "systems": [
-    {
-      "sys": "D25",
-      "title": "Johnny.Decimal",
-      "root": "/path/to/the/filesystem",
-      "jdex": "/path/to/the/index",
-      "default": true
-    }
-  ]
-}
-```
-
-- `root` is the only required key. `jdex` is required for anything in this skill.
-- `sys` is the system identifier, the `SYS` in `SYS.AC.ID`. Most people have one system and don't need it.
-- `default: true` marks the usual system. It only matters when there is more than one.
-
-If the file already exists, add to its `systems` list and leave the other entries alone. Never overwrite it.
+If the config is missing, or the system you want has no `jdex` path, the JD CLI writes it. Run `~/.jd/cli/bin/jd agent-setup`: it prints a prompt in the user's voice that finds their systems, confirms each root, and writes `~/.jd/config.json`. Follow it. If the CLI is not installed, call `install_cli` on the server first. This skill keeps no copy of those steps and never writes the file from memory. Ask before writing.
 
 Two files share the name `config.json` and answer different questions. Tell them apart by their keys:
 
@@ -193,7 +168,7 @@ The program is `~/.jd/cli/bin/jd`. Nothing has to be sourced first. Check it wit
 - `--dry-run` says what it would make, and makes nothing. Use it when you are not sure.
 - `--json` prints one object to branch on: `{ "ok": true, ... }` or `{ "ok": false, "code": "...", ... }`. Its `toFill` list names the template tokens you gave no value. Each token has a flag: `{{?SCOPE}}` is `--scope`. Ask the user for the values, or pass them when you know them.
 - With more than one system, `--system` goes first: `~/.jd/cli/bin/jd --system P76 new id 21 A title`.
-- `jd new` is a beta feature. If jd says beta is off, tell the user and ask before you run `jd beta on`.
+- `jd new` and `jd move` are beta features. If jd says beta is off, tell the user and ask before you run `jd beta on`.
 
 The ID it made is your active ID from then on. Read its note before you write to it. The template shapes it, and the user's conventions are in there.
 

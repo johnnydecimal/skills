@@ -64,7 +64,7 @@ Create `~/.jd/config.json`:
 - `jdex` is your index, for example your Obsidian vault.
 - With more than one system, mark the usual one `"default": true`, and give each a `"sys"` — its system identifier, the `SYS` in `SYS.AC.ID`.
 
-If you skip this, the skill offers to find your locations and write the file for you.
+If you skip this, the skill has the JD CLI write it: `jd agent-setup` prints a prompt that finds your systems and writes the file.
 
 ### 2. Connect the MCP server
 
