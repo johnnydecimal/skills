@@ -66,9 +66,9 @@ Create `~/.config/johnnydecimal/config.json`:
 
 If you skip this, the skill has the JD CLI write it: `jd agent-setup` prints a prompt that finds your systems and writes the file.
 
-The path follows the XDG Base Directory Specification, so it is `$XDG_CONFIG_HOME/johnnydecimal/config.json` if you set that variable. `$JD_CONFIG` names the file itself. With the JD CLI installed, the skill asks it: `jd paths config` prints the path.
+The path follows the XDG Base Directory Specification. If you set `$XDG_CONFIG_HOME`, the file is `$XDG_CONFIG_HOME/johnnydecimal/config.json`. If you set `$JD_CONFIG`, the skill reads only that file. If you have the JD CLI, the skill gets the path from `jd paths config`.
 
-Before version 4.0 of the JD CLI, the file was `~/.jd/config.json`. The skill still reads one there when the new place has none, and tells you that you can move it.
+Before version 4.0 of the JD CLI, the file was `~/.jd/config.json`. If your file is still there, the skill continues to read it, and tells you that you can move it.
 
 ### 2. Connect the MCP server
 

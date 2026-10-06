@@ -30,28 +30,29 @@ claude mcp add --transport http jd https://johnnydecimal.com/mcp
 
 # Where the configuration file and the CLI are
 
-The JD CLI says where its files are. Ask it. Do not work a path out yourself when the CLI can say.
+The JD CLI knows the paths of its files. Get each path from the CLI. Do not calculate a path yourself if the CLI can give it to you.
 
 - The program is `~/.local/share/johnnydecimal/cli/bin/jd`. Nothing has to be sourced first.
-- `~/.local/share/johnnydecimal/cli/bin/jd paths config` prints the path of the configuration file. `paths` with no word after it prints the journal and the CLI's own folder too.
+- `~/.local/share/johnnydecimal/cli/bin/jd paths config` prints the path of the configuration file.
+- `~/.local/share/johnnydecimal/cli/bin/jd paths` prints three paths: the configuration file, the journal, and the folder that contains the CLI.
 
-Before version 4.0, the CLI kept everything in `~/.jd`: the program at `~/.jd/cli/bin/jd`, the configuration file at `~/.jd/config.json`, and the journal. That is the old place. An install there still works.
+Before version 4.0, the CLI kept all its files in `~/.jd`. The program was `~/.jd/cli/bin/jd`. The configuration file was `~/.jd/config.json`. A CLI that is still in `~/.jd` continues to operate.
 
-- If the program is not at the first path, try `~/.jd/cli/bin/jd help`. If it runs, use that path wherever this skill names the program.
-- Tell the user once that the CLI is in its old place, and that you can update it and move it. `install_cli` on the server has the steps. Ask before you run them. Do not move anything yourself.
-- If `paths` is an error, the CLI is older than 4.0. The configuration file is then `$JD_CONFIG` if that is set, and `~/.jd/config.json` if it is not. Tell the user the CLI is old, the same way.
-- If jd prints a line that says a file is in `~/.jd`, the old place, the CLI is new and that file has not moved yet. Tell the user once. `jd agent-setup` prints the prompt that moves it. Ask before you follow it.
+- If the program is not at the first path, run `~/.jd/cli/bin/jd help`. If that command runs, use `~/.jd/cli/bin/jd` in each command that this skill gives.
+- If the CLI is in `~/.jd`, tell the user one time. Tell them that you can update the CLI and move it. `install_cli` on the server has the steps. Ask before you do the steps. Do not move the files yourself.
+- If `paths` gives an error, the CLI is older than 4.0. Then the configuration file is `$JD_CONFIG` if the user set it. If the user did not set it, the configuration file is `~/.jd/config.json`. Tell the user one time that the CLI is old, and that `install_cli` has the steps to update it.
+- If jd prints a line about a file in `~/.jd`, the CLI is 4.0 or later, but that file is still in `~/.jd`. Tell the user one time. `jd agent-setup` prints a prompt that tells you how to move the file. Ask before you follow the prompt.
 
-With no CLI at either path, the configuration file is at the first of these that applies:
+If there is no CLI at either path, use the first item in this list that applies:
 
-1. `$JD_CONFIG`, if it is set. It names the file.
-2. `$XDG_CONFIG_HOME/johnnydecimal/config.json`, if that variable is set.
+1. `$JD_CONFIG`, if it is set. `$JD_CONFIG` is the path of the configuration file.
+2. `$XDG_CONFIG_HOME/johnnydecimal/config.json`, if `$XDG_CONFIG_HOME` is set.
 3. `~/.config/johnnydecimal/config.json`.
-4. `~/.jd/config.json`, the old place, if there is no file at the path before it.
+4. `~/.jd/config.json`, if there is no file at the path from item 2 or item 3.
 
 # The JDex and the filesystem
 
-There are two parallel structures. Both use the same JD hierarchy. Their paths come from the configuration file, the canonical Johnny.Decimal client config. Find it the way the section above says, and read it once at the start. Each entry in its `systems` list has:
+There are two parallel structures. Both use the same JD hierarchy. Their paths come from the configuration file, the canonical Johnny.Decimal client config. Find the configuration file as the section above tells you. Read it one time, at the start. Each entry in its `systems` list has:
 
 - `jdex` — the index. Markdown notes, usually an Obsidian vault. This is where you look things up and write documentation.
 - `root` — the filesystem. The actual files (PDFs, images, documents) in JD-structured folders.
@@ -97,7 +98,7 @@ The numbers give you the path. Don't search for it.
 
 - Your **active ID** is determined once per session, in this priority order:
   1. An ID at the start of the current folder's name, e.g. `12.34 My folder`, or `W0189~21.41 Some package`. This is the normal case. People open Claude directly in an ID folder, so check this first. Match `NN.NN` or `WNNNN` only. A category (`13 Money`) and an area (`10-19 Life admin`) are not IDs.
-  2. A `.jd/config.json` naming the ID this folder is about: `{"id": "12.34"}`, plus `"sys": "D25"` when the user runs more than one system. Walk up from the working directory to the first one you find, stopping at the home folder. The nearest wins. Do not read one in the home folder for this: `~/.jd/config.json` is the old place of the configuration file, and it has no `id`.
+  2. A `.jd/config.json` naming the ID this folder is about: `{"id": "12.34"}`, plus `"sys": "D25"` when the user runs more than one system. Walk up from the working directory to the first one you find, stopping at the home folder. The nearest wins. Do not use `~/.jd/config.json` for this. That file is the configuration file of an older CLI, and it has no `id`.
   3. An ID at the start of a parent folder's name, nearest first. This covers working in a subfolder, e.g. `12.34 Receipts/2026-03`.
   4. An ID the user explicitly provides when asked.
 - Once an active ID is set, **stick with it**. All reads, writes, and documentation go to that ID's JDex entry.
@@ -181,7 +182,7 @@ Name it `AC.05 AI for <location> ✨`. Copy `<location>` from the `AC.01` note i
 
 The JD CLI makes new IDs and work packages. Never write a new ID's note or folder by hand. The CLI picks the next free number, fills the note from the user's template, and makes the folder. Each of those is easy to get wrong by hand.
 
-The program is `~/.local/share/johnnydecimal/cli/bin/jd`. Nothing has to be sourced first. Check it with `~/.local/share/johnnydecimal/cli/bin/jd help`. If it is not there, it can be in the old place. Where the configuration file and the CLI are, above, says what to do.
+The program is `~/.local/share/johnnydecimal/cli/bin/jd`. Nothing has to be sourced first. Check it with `~/.local/share/johnnydecimal/cli/bin/jd help`. If the program is not there, it can be in `~/.jd/cli`. Refer to the section Where the configuration file and the CLI are, above.
 
 - A new ID: `~/.local/share/johnnydecimal/cli/bin/jd new id 21 A title`. This makes the next free ID in category 21. Give `21.34` instead of `21` for that exact ID. The user names the category. A new ID needs no active ID first.
 - A new work package: `~/.local/share/johnnydecimal/cli/bin/jd new wp 21.41 A title`. This makes the next free W number, and the package belongs to `21.41`.
