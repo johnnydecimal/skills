@@ -8,6 +8,24 @@ Skills that let an AI agent work with your [Johnny.Decimal](https://johnnydecima
 
 There are two routes. Pick one. Both together gives you every skill twice.
 
+### As files you own
+
+This is the preferred route. It is for Claude Code, Codex, Cursor, and every other agent. You can edit the skills.
+
+```
+npx skills add johnnydecimal/skills
+```
+
+To update the skills later:
+
+```
+npx skills update
+```
+
+Refer to the [skills tool](https://github.com/vercel-labs/skills) for its other commands.
+
+Or copy the folders in `skills/` into your agent's skills directory yourself. For Claude Code that is `~/.claude/skills/` for every project, or `.claude/skills/` for one.
+
 ### As a Claude Code plugin
 
 A read-only bundle that Claude Code updates for you.
@@ -18,16 +36,6 @@ claude plugin install johnnydecimal-skills@johnnydecimal
 ```
 
 Or, from inside a session, `/plugin marketplace add johnnydecimal/skills` and then `/plugin install johnnydecimal-skills@johnnydecimal`.
-
-### As files you own
-
-For Codex, Cursor, and every other agent, and for Claude Code if you want to edit the skills.
-
-```
-npx skills add johnnydecimal/skills
-```
-
-Or copy the folders in `skills/` into your agent's skills directory yourself. For Claude Code that is `~/.claude/skills/` for every project, or `.claude/skills/` for one.
 
 ## What you get
 
