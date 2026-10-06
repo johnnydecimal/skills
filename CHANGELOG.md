@@ -4,6 +4,18 @@
 
 This repo uses [semantic versioning](https://semver.org). The version number lives in `.claude-plugin/plugin.json`. Claude Code uses it to decide when installed users get an update, so bump it with every change that reaches a skill. Each release has a git tag, for example `v1.1.0`, and a GitHub release with the same body as its entry here.
 
+## 1.4.1 – 2026-10-06
+
+> AI generated.
+
+This release changes only the README. Nothing changes in the skills,
+and you do not have to do anything.
+
+### Changes
+
+- The Contributing section of the README describes how a release is
+  made now.
+
 ## 1.4.0 – 2026-10-06
 
 > AI generated. Reviewed by Johnny.
