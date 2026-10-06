@@ -4,6 +4,33 @@
 
 This repo uses [semantic versioning](https://semver.org). The version number lives in `.claude-plugin/plugin.json`. Claude Code uses it to decide when installed users get an update, so bump it with every change that reaches a skill. Each release has a git tag, for example `v1.1.0`, and a GitHub release with the same body as its entry here.
 
+## 1.4.0 – 2026-10-06
+
+> AI generated. Reviewed by Johnny.
+
+Version 4.0 of the JD CLI no longer keeps its files in `~/.jd`. With
+this release, the `jdex` skill finds the configuration file and the
+CLI at their new paths. Update the skills before you move your
+configuration file. The preferred way to install the skills is
+`npx skills add johnnydecimal/skills`. If you installed the skills
+that way, run `npx skills update` to get this release. Refer to the
+[README](https://github.com/johnnydecimal/skills#install) for the
+instructions.
+
+### Changes
+
+- `jdex` looks for the configuration file at
+  `~/.config/johnnydecimal/config.json`. If you have the JD CLI,
+  `jdex` gets the path from `jd paths config`.
+- `jdex` looks for the JD CLI at
+  `~/.local/share/johnnydecimal/cli/bin/jd`.
+- If your configuration file or your JD CLI is still in `~/.jd`,
+  `jdex` continues to use it. `jdex` tells you one time that you can
+  move it, and asks before it does anything.
+- The README gives the new path of the configuration file. It also
+  says that `npx skills add johnnydecimal/skills` is the preferred
+  way to install, and that `npx skills update` updates the skills.
+
 ## 1.3.0 – 2026-09-15
 
 > AI generated. Reviewed by Johnny.
