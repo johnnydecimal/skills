@@ -49,7 +49,7 @@ Reference material on how Johnny.Decimal works. You do not invoke this one. The 
 
 ### 1. Tell the skills where your system is
 
-Create `~/.jd/config.json`:
+Create `~/.config/johnnydecimal/config.json`:
 
 ```json
 {
@@ -65,6 +65,10 @@ Create `~/.jd/config.json`:
 - With more than one system, mark the usual one `"default": true`, and give each a `"sys"` — its system identifier, the `SYS` in `SYS.AC.ID`.
 
 If you skip this, the skill has the JD CLI write it: `jd agent-setup` prints a prompt that finds your systems and writes the file.
+
+The path follows the XDG Base Directory Specification, so it is `$XDG_CONFIG_HOME/johnnydecimal/config.json` if you set that variable. `$JD_CONFIG` names the file itself. With the JD CLI installed, the skill asks it: `jd paths config` prints the path.
+
+Before version 4.0 of the JD CLI, the file was `~/.jd/config.json`. The skill still reads one there when the new place has none, and tells you that you can move it.
 
 ### 2. Connect the MCP server
 
@@ -124,7 +128,7 @@ They answer different questions. Tell them apart by their keys.
 
 | File | Question | Key |
 |---|---|---|
-| `~/.jd/config.json` | Which systems do I have, and where? | `systems` |
+| `~/.config/johnnydecimal/config.json` | Which systems do I have, and where? | `systems` |
 | `./.jd/config.json` | Which ID is this folder about? | `id` |
 
 Neither overrides the other.

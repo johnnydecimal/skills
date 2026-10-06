@@ -2,7 +2,7 @@
 name: jdex
 description: Read and write to the user's JDex — their Johnny.Decimal index. Use this skill whenever the user mentions their JDex, asks to check, fetch, or update their own documentation, references a Johnny.Decimal ID (e.g. 12.34, W0189), invokes you from a folder with an ID in its name, asks to find a file or document, asks to file, name, or rename a file (e.g. "file this", "name this", "put this download away"), asks to move in to their system or to put their existing files into it (e.g. "move me in", "sort out my Downloads"), asks where a document belongs in their JD system, or asks a factual question about their own life or business (e.g. "where does X money go?", "what's the process for Y?", "trace where Z ended up"). The JDex is their knowledge base — treat any investigative or research question about their own information as a JDex lookup first.
 license: MIT
-compatibility: Needs the jd MCP server at https://johnnydecimal.com/mcp, a ~/.jd/config.json, and a shell. Making new IDs and moving files needs the JD CLI. Content search needs the obsidian CLI.
+compatibility: Needs the jd MCP server at https://johnnydecimal.com/mcp, the Johnny.Decimal configuration file, and a shell. Making new IDs and moving files needs the JD CLI. Content search needs the obsidian CLI.
 ---
 
 # Prerequisites
@@ -28,20 +28,41 @@ If the server is not connected, say so once, then continue vault-only. Say what 
 claude mcp add --transport http jd https://johnnydecimal.com/mcp
 ```
 
+# Where the configuration file and the CLI are
+
+The JD CLI says where its files are. Ask it. Do not work a path out yourself when the CLI can say.
+
+- The program is `~/.local/share/johnnydecimal/cli/bin/jd`. Nothing has to be sourced first.
+- `~/.local/share/johnnydecimal/cli/bin/jd paths config` prints the path of the configuration file. `paths` with no word after it prints the journal and the CLI's own folder too.
+
+Before version 4.0, the CLI kept everything in `~/.jd`: the program at `~/.jd/cli/bin/jd`, the configuration file at `~/.jd/config.json`, and the journal. That is the old place. An install there still works.
+
+- If the program is not at the first path, try `~/.jd/cli/bin/jd help`. If it runs, use that path wherever this skill names the program.
+- Tell the user once that the CLI is in its old place, and that you can update it and move it. `install_cli` on the server has the steps. Ask before you run them. Do not move anything yourself.
+- If `paths` is an error, the CLI is older than 4.0. The configuration file is then `$JD_CONFIG` if that is set, and `~/.jd/config.json` if it is not. Tell the user the CLI is old, the same way.
+- If jd prints a line that says a file is in `~/.jd`, the old place, the CLI is new and that file has not moved yet. Tell the user once. `jd agent-setup` prints the prompt that moves it. Ask before you follow it.
+
+With no CLI at either path, the configuration file is at the first of these that applies:
+
+1. `$JD_CONFIG`, if it is set. It names the file.
+2. `$XDG_CONFIG_HOME/johnnydecimal/config.json`, if that variable is set.
+3. `~/.config/johnnydecimal/config.json`.
+4. `~/.jd/config.json`, the old place, if there is no file at the path before it.
+
 # The JDex and the filesystem
 
-There are two parallel structures. Both use the same JD hierarchy. Their paths come from `~/.jd/config.json`, the canonical Johnny.Decimal client config — read it once at the start. Each entry in its `systems` list has:
+There are two parallel structures. Both use the same JD hierarchy. Their paths come from the configuration file, the canonical Johnny.Decimal client config. Find it the way the section above says, and read it once at the start. Each entry in its `systems` list has:
 
 - `jdex` — the index. Markdown notes, usually an Obsidian vault. This is where you look things up and write documentation.
 - `root` — the filesystem. The actual files (PDFs, images, documents) in JD-structured folders.
 
 With several systems in the config, use the entry marked `default: true` unless the user names another.
 
-If the config is missing, or the system you want has no `jdex` path, the JD CLI writes it. Run `~/.jd/cli/bin/jd agent-setup`: it prints a prompt in the user's voice that finds their systems, confirms each root, and writes `~/.jd/config.json`. Follow it. If the CLI is not installed, call `install_cli` on the server first. This skill keeps no copy of those steps and never writes the file from memory. Ask before writing.
+If the config is missing, or the system you want has no `jdex` path, the JD CLI writes it. Run `~/.local/share/johnnydecimal/cli/bin/jd agent-setup`: it prints a prompt in the user's voice that finds their systems, confirms each root, and writes the configuration file. Follow it. If the CLI is not installed, call `install_cli` on the server first. This skill keeps no copy of those steps and never writes the file from memory. Ask before writing.
 
 Two files share the name `config.json` and answer different questions. Tell them apart by their keys:
 
-- `~/.jd/config.json` has a `systems` list. It says which systems exist and where they are. One per machine.
+- The configuration file has a `systems` list. It says which systems exist and where they are. One per machine.
 - `.jd/config.json` in a working folder has an `id`. It says which ID that folder is about. It never carries a `systems` list.
 
 Neither overrides the other. If a folder one ever carries `root` or `jdex`, those win for that folder only.
@@ -76,7 +97,7 @@ The numbers give you the path. Don't search for it.
 
 - Your **active ID** is determined once per session, in this priority order:
   1. An ID at the start of the current folder's name, e.g. `12.34 My folder`, or `W0189~21.41 Some package`. This is the normal case. People open Claude directly in an ID folder, so check this first. Match `NN.NN` or `WNNNN` only. A category (`13 Money`) and an area (`10-19 Life admin`) are not IDs.
-  2. A `.jd/config.json` naming the ID this folder is about: `{"id": "12.34"}`, plus `"sys": "D25"` when the user runs more than one system. Walk up from the working directory to the first one you find, stopping at the home folder. The nearest wins. Do not read `~/.jd/config.json` for this; that file has no `id`.
+  2. A `.jd/config.json` naming the ID this folder is about: `{"id": "12.34"}`, plus `"sys": "D25"` when the user runs more than one system. Walk up from the working directory to the first one you find, stopping at the home folder. The nearest wins. Do not read one in the home folder for this: `~/.jd/config.json` is the old place of the configuration file, and it has no `id`.
   3. An ID at the start of a parent folder's name, nearest first. This covers working in a subfolder, e.g. `12.34 Receipts/2026-03`.
   4. An ID the user explicitly provides when asked.
 - Once an active ID is set, **stick with it**. All reads, writes, and documentation go to that ID's JDex entry.
@@ -160,14 +181,14 @@ Name it `AC.05 AI for <location> ✨`. Copy `<location>` from the `AC.01` note i
 
 The JD CLI makes new IDs and work packages. Never write a new ID's note or folder by hand. The CLI picks the next free number, fills the note from the user's template, and makes the folder. Each of those is easy to get wrong by hand.
 
-The program is `~/.jd/cli/bin/jd`. Nothing has to be sourced first. Check it with `~/.jd/cli/bin/jd help`.
+The program is `~/.local/share/johnnydecimal/cli/bin/jd`. Nothing has to be sourced first. Check it with `~/.local/share/johnnydecimal/cli/bin/jd help`. If it is not there, it can be in the old place. Where the configuration file and the CLI are, above, says what to do.
 
-- A new ID: `~/.jd/cli/bin/jd new id 21 A title`. This makes the next free ID in category 21. Give `21.34` instead of `21` for that exact ID. The user names the category. A new ID needs no active ID first.
-- A new work package: `~/.jd/cli/bin/jd new wp 21.41 A title`. This makes the next free W number, and the package belongs to `21.41`.
+- A new ID: `~/.local/share/johnnydecimal/cli/bin/jd new id 21 A title`. This makes the next free ID in category 21. Give `21.34` instead of `21` for that exact ID. The user names the category. A new ID needs no active ID first.
+- A new work package: `~/.local/share/johnnydecimal/cli/bin/jd new wp 21.41 A title`. This makes the next free W number, and the package belongs to `21.41`.
 - The title needs no quotes. It is every word up to the first word that starts with `--`.
 - `--dry-run` says what it would make, and makes nothing. Use it when you are not sure.
 - `--json` prints one object to branch on: `{ "ok": true, ... }` or `{ "ok": false, "code": "...", ... }`. Its `toFill` list names the template tokens you gave no value. Each token has a flag: `{{?SCOPE}}` is `--scope`. Ask the user for the values, or pass them when you know them.
-- With more than one system, `--system` goes first: `~/.jd/cli/bin/jd --system P76 new id 21 A title`.
+- With more than one system, `--system` goes first: `~/.local/share/johnnydecimal/cli/bin/jd --system P76 new id 21 A title`.
 - `jd new` and `jd move` are beta features. If jd says beta is off, tell the user and ask before you run `jd beta on`.
 
 The ID it made is your active ID from then on. Read its note before you write to it. The template shapes it, and the user's conventions are in there.
@@ -180,7 +201,7 @@ The one exception is the `AC.05` note, above. It has a fixed number, and its fol
 
 Moving in puts the user's existing files into the system they have installed. The server's `move_in` tool holds the process. This skill holds the rules for the CLI and the note, and nothing more. When the user wants their existing files in their system, call `move_in` with the system, `las` or `sbs`. Follow the text it returns.
 
-- Files move with `~/.jd/cli/bin/jd move`. Use that full path. Never run `mv`. Never delete a file or a folder. The CLI moves files, not you. The same rule holds for new IDs, under Creating things above.
+- Files move with `~/.local/share/johnnydecimal/cli/bin/jd move`. Use that full path. Never run `mv`. Never delete a file or a folder. The CLI moves files, not you. The same rule holds for new IDs, under Creating things above.
 - The run's state lives in the `00.05` note, under one heading, `## yyyy-mm-dd Moving in`. `move_in` names the sub-headings under it. Read that section first in every session. The section is yours. Mark it the way Writing things, above, says.
 - Reading inside files is the user's choice. `move_in` asks once and records the answer in that note. Keep to the recorded answer. Do not ask again.
 - Filing, below, says what a good name and a good subfolder are.
@@ -195,7 +216,7 @@ The published rules for names and subfolders live on the server. Call `get_docum
 
 ## How it moves
 
-The move is one `jd move` call, the same as Moving in says. Never run `mv`, not even to rename. `jd move` renames the file as it moves, and puts it in a subfolder of the ID, which it makes when needed. Run `~/.jd/cli/bin/jd move --help` for the syntax. Do not work from memory. If the help lists neither, the CLI is old. Tell the user. `install_cli` on the server has the update steps. Ask before you run them.
+The move is one `jd move` call, the same as Moving in says. Never run `mv`, not even to rename. `jd move` renames the file as it moves, and puts it in a subfolder of the ID, which it makes when needed. Run `~/.local/share/johnnydecimal/cli/bin/jd move --help` for the syntax. Do not work from memory. If the help lists neither, the CLI is old. Tell the user. `install_cli` on the server has the update steps. Ask before you run them.
 
 ## The proposed name
 
