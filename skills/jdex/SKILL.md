@@ -190,7 +190,7 @@ The program is `~/.local/share/johnnydecimal/cli/bin/jd`. Nothing has to be sour
 - `--dry-run` says what it would make, and makes nothing. Use it when you are not sure.
 - `--json` prints one object to branch on: `{ "ok": true, ... }` or `{ "ok": false, "code": "...", ... }`. Its `toFill` list names the template tokens you gave no value. Each token has a flag: `{{?SCOPE}}` is `--scope`. Ask the user for the values, or pass them when you know them.
 - With more than one system, `--system` goes first: `~/.local/share/johnnydecimal/cli/bin/jd --system P76 new id 21 A title`.
-- `jd new` and `jd move` are beta features. If jd says beta is off, tell the user and ask before you run `jd beta on`.
+- If jd says beta is off, the CLI is older than 4.2.0. Tell the user. `install_cli` on the server has the update steps. Ask before you run them.
 
 The ID it made is your active ID from then on. Read its note before you write to it. The template shapes it, and the user's conventions are in there.
 
