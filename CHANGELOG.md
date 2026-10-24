@@ -4,6 +4,19 @@
 
 This repo uses [semantic versioning](https://semver.org). The version number lives in `.claude-plugin/plugin.json`. Claude Code uses it to decide when installed users get an update, so bump it with every change that reaches a skill. Each release has a git tag, for example `v1.1.0`, and a GitHub release with the same body as its entry here.
 
+## 1.4.2 – 2026-10-24
+
+> AI generated. Reviewed by Johnny.
+
+The jdex skill no longer tells your agent to turn beta on. JD CLI
+4.2.0 runs `jd new` and `jd move` with beta off.
+
+### Changes
+
+- If jd says beta is off, your agent says that the CLI is older
+  than 4.2.0, and asks before it updates the CLI. Before, the agent
+  asked to run `jd beta on`.
+
 ## 1.4.1 – 2026-10-06
 
 > AI generated.
