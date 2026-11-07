@@ -2,7 +2,7 @@
 name: jdex
 description: Read and write to the user's JDex — their Johnny.Decimal index. Use this skill whenever the user mentions their JDex, asks to check, fetch, or update their own documentation, references a Johnny.Decimal ID (e.g. 12.34, W0189), invokes you from a folder with an ID in its name, asks to find a file or document, asks to file, name, or rename a file (e.g. "file this", "name this", "put this download away"), asks to move in to their system or to put their existing files into it (e.g. "move me in", "sort out my Downloads"), asks where a document belongs in their JD system, or asks a factual question about their own life or business (e.g. "where does X money go?", "what's the process for Y?", "trace where Z ended up"). The JDex is their knowledge base — treat any investigative or research question about their own information as a JDex lookup first.
 license: MIT
-compatibility: Needs the jd MCP server at https://johnnydecimal.com/mcp, the Johnny.Decimal configuration file, and a shell. Making new IDs and moving files needs the JD CLI. Content search needs the obsidian CLI.
+compatibility: Needs the jd MCP server at https://johnnydecimal.com/mcp, the Johnny.Decimal configuration file, and a shell. Making new IDs and moving files needs the JD CLI. Content search needs the obsidian CLI, or bearcli for a JDex in Bear.
 ---
 
 # Prerequisites
@@ -52,14 +52,18 @@ If there is no CLI at either path, use the first item in this list that applies:
 
 # The JDex and the filesystem
 
-There are two parallel structures. Both use the same JD hierarchy. Their paths come from the configuration file, the canonical Johnny.Decimal client config. Find the configuration file as the section above tells you. Read it one time, at the start. Each entry in its `systems` list has:
+There are two parallel structures. Both use the same JD hierarchy. Their paths come from the configuration file, the canonical Johnny.Decimal client config. Find the configuration file as the section above tells you. Read it one time, at the start.
 
-- `jdex` — the index. Markdown notes, usually an Obsidian vault. This is where you look things up and write documentation.
+The file has `"version": 2`. If it has `"version": 1`, or no version, run `~/.local/share/johnnydecimal/cli/bin/jd` with no words, and read the file again: the CLI changes it to version 2. If it is still version 1, the CLI is older than 5.0. Tell the user one time that `install_cli` has the steps to update it, and read `jdex` as the folder's path until then.
+
+Each entry in its `systems` list has:
+
+- `jdex` — the index, an object. `jdex.app` is the app that contains it: `obsidian`, `bear`, or none for a folder of notes. `jdex.path` is its folder. A JDex in Bear has no folder. This is where you look things up and write documentation.
 - `root` — the filesystem. The actual files (PDFs, images, documents) in JD-structured folders.
 
 With several systems in the config, use the entry marked `default: true` unless the user names another.
 
-If the config is missing, or the system you want has no `jdex` path, the JD CLI writes it. Run `~/.local/share/johnnydecimal/cli/bin/jd agent-setup`: it prints a prompt in the user's voice that finds their systems, confirms each root, and writes the configuration file. Follow it. If the CLI is not installed, call `install_cli` on the server first. This skill keeps no copy of those steps and never writes the file from memory. Ask before writing.
+If the config is missing, or the system you want has no `jdex`, the JD CLI writes it. Run `~/.local/share/johnnydecimal/cli/bin/jd agent-setup`: it prints a prompt in the user's voice that finds their systems, confirms each root, and writes the configuration file. Follow it. If the CLI is not installed, call `install_cli` on the server first. This skill keeps no copy of those steps and never writes the file from memory. Ask before writing.
 
 Two files share the name `config.json` and answer different questions. Tell them apart by their keys:
 
@@ -68,7 +72,7 @@ Two files share the name `config.json` and answer different questions. Tell them
 
 Neither overrides the other. If a folder one ever carries `root` or `jdex`, those win for that folder only.
 
-In the examples below, `$JD_JDEX` and `$JD_ROOT` stand for these two paths. Substitute the real values — shell variables don't persist between your Bash calls.
+In the examples below, `$JD_JDEX` and `$JD_ROOT` stand for `jdex.path` and `root`. Substitute the real values — shell variables don't persist between your Bash calls.
 
 The JD numbering makes paths deterministic. The digits of the ID give you the folders:
 
@@ -83,6 +87,7 @@ The filesystem always nests like this. The JDex does not, so establish its layou
 - **Nested** — the root holds area folders, `10-19 Life admin`. A note is at `$JD_JDEX/10-19*/13*/13.42*`. The JDHQ Obsidian downloads default to this.
 - **Flat** — the root holds the notes themselves, `13.42 Some title.md`. A note is at `$JD_JDEX/13.42*`. A notes app with no folders gives you this, and it is offered as a download too.
 - **One file** — the root is a single `.md`. Read it and work inside it.
+- **Bear** — `jdex.app` is `bear`, and there is no folder to `ls`. Read it as [Bear](#bear) says.
 
 Both of the first two are normal. Do not treat a flat JDex as a broken nested one.
 
@@ -265,7 +270,7 @@ Mark it the way Writing things, above, says.
 
 The numbering exists so you don't need the whole index. Walk down it.
 
-1. `ls` the jdex root. That tells you the layout. A few lines when nested, one line per ID when flat. If it is a single file, read that file and stop here.
+1. `ls` the jdex root. That tells you the layout. For a JDex in Bear, list the tags instead, as [Bear](#bear) says, and walk down them the same way. A few lines when nested, one line per ID when flat. If it is a single file, read that file and stop here.
 2. **Nested** — the root gave you the areas. List the categories inside the area the question points at, then the `.md` files in the likely category. If you can't tell which area yet, list the categories across all of them. Still small.
    **Flat** — the root already gave you every entry. Filter it by category, e.g. `ls "$JD_JDEX"/13.*`.
 3. Those are the entry titles. Scan them for a match.
@@ -295,9 +300,27 @@ ls $JD_ROOT/10-19*/13*/13.42*/+Savings/  # a child entry
 
 Not needed when they're just asking "where would I find X?".
 
+# Bear
+
+When `jdex.app` is `bear`, the JDex is in Bear's tags.
+
+- An area is a top-level tag, `#10-19 Life admin#`. A category is a tag nested below it, `#10-19 Life admin/11 Me#`. Match each tag by the number at its start.
+- An ID is a note with its category's tag, or a tag below that, whose title starts with the ID: `11.53 Correspondence`. A work package is a note with the `#W0000-9999 …#` tag.
+- If the library has a top-level tag that starts with the system's `sys`, such as `#P76 Personal#`, that system's tags are below it.
+- A note in the trash is not in the JDex. An archived note is.
+
+Use the Bear MCP tools if you have them. Otherwise run `/Applications/Bear.app/Contents/MacOS/bearcli`. `bearcli help` lists its commands. The useful ones here:
+
+- `bearcli tags list` — the areas and the categories.
+- `bearcli list --tag "10-19 Life admin/11 Me" --fields id,title --format json` — the entries in one category.
+- `bearcli search "..."` — searches content as well as titles.
+- `bearcli cat <id>` — one note.
+
+`jd new id` and `jd new wp` write their note to Bear.
+
 # Obsidian
 
-- The JDex is usually an Obsidian vault. There will be a `.obsidian` folder at the root.
+- When `jdex.app` is `obsidian`, there is a `.obsidian` folder at the root.
 - Check for the `obsidian` command with `command -v obsidian`. It queries the vault directly.
 - `obsidian help` lists every command. The useful ones here:
   - `obsidian search query="..." format=json` — searches content as well as filenames.

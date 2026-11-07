@@ -61,15 +61,15 @@ Create `~/.config/johnnydecimal/config.json`:
 
 ```json
 {
-  "version": 1,
+  "version": 2,
   "systems": [
-    { "root": "/path/to/your/filesystem", "jdex": "/path/to/your/jdex" }
+    { "root": "/path/to/your/filesystem", "jdex": { "path": "/path/to/your/jdex" } }
   ]
 }
 ```
 
 - `root` is your Johnny.Decimal filesystem.
-- `jdex` is your index, for example your Obsidian vault.
+- `jdex` is your index. `path` is its folder. Add `"app": "obsidian"` for an Obsidian vault. For a JDex in Bear, `jdex` is `{ "app": "bear" }`, with no path.
 - With more than one system, mark the usual one `"default": true`, and give each a `"sys"` — its system identifier, the `SYS` in `SYS.AC.ID`.
 
 If you skip this, the skill has the JD CLI write it: `jd agent-setup` prints a prompt that finds your systems and writes the file.
