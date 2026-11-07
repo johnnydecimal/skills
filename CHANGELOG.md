@@ -4,6 +4,20 @@
 
 This repo uses [semantic versioning](https://semver.org). The version number lives in `.claude-plugin/plugin.json`. Claude Code uses it to decide when installed users get an update, so bump it with every change that reaches a skill. Each release has a git tag, for example `v1.1.0`, and a GitHub release with the same body as its entry here.
 
+## 1.5.0 – 2026-11-07
+
+> AI generated. Reviewed by Johnny.
+
+The jdex skill reads version 2 of the configuration file, which JD CLI 5.0 writes, and a JDex in Bear. Update the skills when you update the CLI to 5.0.
+
+### Features
+
+- The jdex skill reads a JDex in Bear, from its tags. It uses the Bear MCP tools, or `bearcli`.
+
+### Changes
+
+- The jdex skill reads `jdex` as an object, with `app` and `path`. If the configuration file is version 1, the skill runs `jd`, which changes the file to version 2.
+
 ## 1.4.3 – 2026-10-24
 
 > AI generated. Reviewed by Johnny.
